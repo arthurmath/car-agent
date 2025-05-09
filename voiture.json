@@ -1,0 +1,20 @@
+{
+    "climatisation": "On",
+    "temperature": 16,
+    "limiteur": 50,
+    "phares": "feux de croisement",
+    "musique": "aucune",
+    "volume": 80,
+    "appel": "aucun",
+    "contacts": [
+        "arthur",
+        "bernard",
+        "jean",
+        "michel"
+    ],
+    "playlists": [
+        "rock",
+        "pop",
+        "techno"
+    ]
+}
