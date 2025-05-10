@@ -1,4 +1,4 @@
-import os
+import sys
 import json
 from langchain import hub
 from langchain.agents import Tool, AgentExecutor, create_openai_functions_agent
@@ -8,8 +8,6 @@ import speech_recognition as sr
 import pyttsx3
 import tkinter as tk
 from tkinter import PhotoImage
-import json
-import sys
 
 from dotenv import load_dotenv
 load_dotenv()
@@ -232,10 +230,10 @@ class TableauDeBord:
     def __init__(self, root):
         self.root = root
         self.root.title("Tableau de bord voiture")
-        self.root.geometry("1200x600")
+        self.root.geometry("1200x650")
         self.root.configure(bg="black")
 
-        self.canvas = tk.Canvas(self.root, width=1200, height=600, bg="grey15")
+        self.canvas = tk.Canvas(self.root, width=1200, height=650, bg="grey15")
         self.canvas.pack()
 
         # Charger les icônes (prévoir des images .png dans le dossier)
@@ -247,6 +245,7 @@ class TableauDeBord:
         self.icon_vitesse = PhotoImage(file="images/vitesse.png").subsample(a, a)
         self.icon_temp = PhotoImage(file="images/temperature.png").subsample(a+4, a+4)
         self.icon_phone = PhotoImage(file="images/phone.png").subsample(a+2, a+2)
+        self.icon_notes = PhotoImage(file="images/notes.png").subsample(a-10, a-10)
         self.dashboard = PhotoImage(file="images/dashboard.png").zoom(2, 2)
         
         # Mettre à jour l'affichage
@@ -288,6 +287,11 @@ class TableauDeBord:
                 self.canvas.create_text(607, 486, text=f"{car_state['temperature']}°", font=("Helvetica", 12), fill="white")
             else:
                 self.canvas.create_text(607, 486, text="Off", font=("Helvetica", 12), fill="white")
+                
+        # Musique : 
+        self.canvas.create_rectangle(560, 565, 685, 600, fill="black", outline="white")
+        self.canvas.create_image(565, 572, image=self.icon_notes, anchor="nw")
+        self.canvas.create_text(615, 582, text=f"{car_state['musique']}", font=("Helvetica", 13), fill="white")
                 
         # Compteur pour éviter la non mise à jour de l'UI
         if compteur > 1:

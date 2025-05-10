@@ -1,10 +1,10 @@
 {
-    "climatisation": "On",
-    "temperature": 16,
-    "limiteur": 50,
+    "climatisation": "Off",
+    "temperature": 20,
+    "limiteur": 110,
     "phares": "feux de croisement",
-    "musique": "aucune",
-    "volume": 80,
+    "musique": "techno",
+    "volume": 60,
     "appel": "aucun",
     "contacts": [
         "arthur",

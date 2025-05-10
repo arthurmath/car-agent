@@ -37,7 +37,7 @@ def listen():
         audio = recognizer.listen(source)
     try:
         command = recognizer.recognize_google(audio, language="fr-FR").lower()
-        print("Utilisateur:", command)
+        print("UTILISATEUR:", command)
         return command
     except sr.UnknownValueError:
         speak("Je n'ai pas compris. Pouvez-vous répéter ?")
@@ -70,7 +70,7 @@ def process_command(command):
                 save_state(car_state)
                 speak(f"Température réglée à {temp} degrés.")
 
-    elif "limiteur" in command:
+    elif "limiteur" in command or "vitesse" in command:
         for word in command.split():
             if word.isdigit():
                 speed = int(word)
@@ -78,7 +78,7 @@ def process_command(command):
                 save_state(car_state)
                 speak(f"Limiteur de vitesse réglé à {speed} km/h.")
 
-    elif "phares" in command or "feux" in command:
+    elif "phares" in command.split() or "feux" in command.split():
         if "position" in command:
             car_state["phares"] = "feux de position"
             save_state(car_state)
@@ -90,20 +90,25 @@ def process_command(command):
             save_state(car_state)
         speak(f"{car_state['phares'].capitalize()} activés.")
 
-    elif "playlist" in command:
-        car_state["musique"] = "playlist lancée"
-        save_state(car_state)
-        speak("Playlist lancée.")
+    elif "playlist" in command.split() or "musique" in command.split():
+        if "arrête" in command.split() or "stop" in command.split():
+            car_state["musique"] = "aucune"
+            save_state(car_state)
+            speak("Playlist arrêtée.")
+        elif "lance" in command.split() or "mets" in command.split():
+            car_state["musique"] = "playlist lancée"
+            save_state(car_state)
+            speak("Playlist lancée.")
 
-    elif "volume" in command:
+    elif "volume" in command.split():
         for word in command.split():
             if word.isdigit():
                 volume = int(word)
                 car_state["volume"] = min(100, max(0, volume))
                 save_state(car_state)
-                speak(f"Volume réglé à {volume}.")
+                speak(f"Volume réglé à {volume}%.")
 
-    elif "appelle" in command:
+    elif "appelle" in command.split():
         for contact in car_state["contacts"]:
             if contact in command:
                 car_state["appel"] = contact
