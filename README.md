@@ -1,5 +1,5 @@
 # Car Vocal Agent
-Agent vocal pour voiture. Vous pouvez appeler l'agent en disant à l'oral "Assistant", puis il sera à votre écoute pour effectuer l'action que vous souhaitez. Un agent IA analysera votre demande et choisira l'action à effectuer. Le LLM GPT-4.1-mini est utilisé pour orchestrer les actions. Le framework utilisé pour executer les actions est Langchain.  
+Agent vocal pour voiture. Vous pouvez appeler l'agent en disant à l'oral "Assistant", puis il sera à votre écoute pour effectuer l'action que vous souhaitez. Un agent IA analysera votre demande et choisira l'action à effectuer. Les modifications seront appliquées sur l'état de la voiture, stocké dans un fichier json et seront visibles sur l'interface graphique. Le LLM GPT-4.1-mini est utilisé pour orchestrer les actions. Le framework utilisé pour executer les actions de l'agent est Langchain.  
 
 ![Ma voiture](images/image_readme.png)
 
