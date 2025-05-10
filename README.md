@@ -40,13 +40,13 @@ pip install -r requirements.txt
 
 ## Lancer l'application : 
 
-Frontend Tkinter (image de présentation): 
+Frontend Tkinter avec agent (image de présentation) : 
 ```
 python app_agent.py
 ```
 
-Frontend Streamlit simple : 
+Frontend Streamlit simple sans agent : 
 ```
 streamlit run frontend.py
-python back_agent.py
+python back_deterministic.py
 ```
