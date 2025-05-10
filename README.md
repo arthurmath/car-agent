@@ -8,7 +8,8 @@ Agent vocal pour voiture. Vous pouvez appeler l'agent en disant à l'oral "Assis
 - Aumgmente le volume : 50% -> 60%
 - J'ai trop chaud : active la climatisation et met la température sur 18°
 - On arrive sur l'autoroute : limiteur de vitesse à 130km/h
-- Appelle Arthur
+- Je vois rien : plein phares activés
+- Appelle Jean
 - Raccroche
 
 
