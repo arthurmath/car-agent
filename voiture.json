@@ -1,10 +1,10 @@
 {
     "climatisation": "Off",
-    "temperature": 20,
+    "temperature": 22,
     "limiteur": 110,
     "phares": "feux de croisement",
-    "musique": "techno",
-    "volume": 60,
+    "musique": "aucune",
+    "volume": 80,
     "appel": "aucun",
     "contacts": [
         "arthur",
@@ -13,8 +13,8 @@
         "michel"
     ],
     "playlists": [
-        "rock",
-        "pop",
-        "techno"
+        "rap",
+        "reggae",
+        "electro"
     ]
 }

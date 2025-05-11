@@ -8,12 +8,13 @@ import speech_recognition as sr
 import pyttsx3
 import tkinter as tk
 from tkinter import PhotoImage
+import pygame as pg
 
 from dotenv import load_dotenv
 load_dotenv()
 
 
-
+pg.mixer.init()
 
 
 
@@ -71,6 +72,22 @@ def musique(playlist: str):
         state = load_state()
         state["musique"] = playlist
         save_state(state)
+        
+        if playlist == "aucune":
+            pg.mixer.music.stop()
+        else:
+            path = "musiques/"
+            match playlist:
+                case "rap":
+                    path += "Dr_Dre.mp3"
+                case "reggae":
+                    path += "Bob_Marley.mp3"
+                case "electro":
+                    path += "Bangarang.mp3"
+            pg.mixer.music.load(path)
+            pg.mixer.music.set_volume(state["volume"] / 100) 
+            pg.mixer.music.play(loops=0) # passe 1 fois
+        
         return f"Playlist {playlist} lancée.\n"
     except ValueError:
         return "Je n'ai pas compris la playlist demandée."
@@ -122,7 +139,7 @@ tools = [
     Tool(name="Climatisation", func=climatisation, description="Active ou désactive la climatisation. Prend en entrée : 'On' ou 'Off'."),
     Tool(name="Temperature", func=temperature, description="Règle la température en degrés. Prend en entrée un entier, par exemple '23'."),
     Tool(name="Volume", func=volume, description="Règle le volume de la musique. Prend en entrée un entier entre 0 et 100, par exemple '55'."),
-    Tool(name="Musique", func=musique, description="Lance une playlist. Prend en entrée le nom d'une playlist, comme 'rock'. Si le nom de la playlist n'est pas sauvegardé dans l'état de la voiture, tu dira 'Playlist inconnue' et tu ne lancera pas la musique. Si le nom de la playlist n'est pas précisé, tu lancera une playlist au hasard dans celles sauvegardées. Si l'utilsateur dit 'coupe la musique', tu appelera cette fonction avec 'aucune' comme paramètre."),
+    Tool(name="Musique", func=musique, description="Lance une playlist. Prend en entrée le nom d'une playlist, comme 'rap'. Si le nom de la playlist n'est pas sauvegardé dans l'état de la voiture, tu dira 'Playlist inconnue' et tu ne lancera pas la musique. Si le nom de la playlist n'est pas précisé, tu lancera une playlist au hasard dans celles sauvegardées. Si l'utilsateur dit 'coupe la musique', tu appelera cette fonction avec 'aucune' comme paramètre."),
     Tool(name="Limiteur", func=limiteur_vitesse, description="Permet de modifier la vitesse (en km/h) du limiteur de vitesse. Prend en entrée un entier, par exemple '130'."),
     Tool(name="Phares", func=changer_phare, description="Permet d'activer les feux de position, de croisement ou de route. Prend en entrée 'position', 'croisement' ou 'route'."),
     Tool(name="Appeler", func=appeler_contact, description="Appelle un contact du carnet d'adresse. Prend entrée un nom de contact, par exemple 'Jean'. Si le nom du contact n'est pas sauvegardé dans l'état de la voiture, tu dira 'Contact inconnu' et tu ne lancera pas l'appel."),
@@ -198,7 +215,8 @@ def assistant():
     if command == "quitter":
         sys.exit()
         
-    if command == "assistant":
+    if "assistant" in command :
+        pg.mixer.music.set_volume(0.1)
         speak("Que puije faire pour vous ?")
         command = listen()
         
@@ -209,6 +227,9 @@ def assistant():
         resultat = agent_executor.invoke({"input": f"Utilisateur: {command} \nEtat actuel de la voiture: {str(load_state())}"})
         speak(resultat["output"])
         compteur = 0
+        
+    state = load_state()
+    pg.mixer.music.set_volume(state["volume"]/100)
 
 
 
@@ -221,7 +242,7 @@ def assistant():
 
 
 
-    
+
 ############### Interface graphique ###############
 
 compteur = 0
@@ -299,7 +320,7 @@ class TableauDeBord:
         compteur += 1
             
         # Rafraîchir automatiquement toutes les 0.5 secondes
-        self.root.after(500, self.update_dashboard) # attend 2s ici puis reload
+        self.root.after(50, self.update_dashboard) # attend 2s ici puis reload
 
 
 
