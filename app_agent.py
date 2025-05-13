@@ -188,8 +188,10 @@ recognizer = sr.Recognizer()
 
 def speak(text):
     print("ASSISTANT:", text)
+    pg.mixer.music.set_volume(0.1) 
     engine.say(text)
     engine.runAndWait() # Attendre la fin de la synthèse vocale
+    pg.mixer.music.set_volume(load_state()["volume"] / 100) 
 
 
 
@@ -319,8 +321,8 @@ class TableauDeBord:
             assistant()
         compteur += 1
             
-        # Rafraîchir automatiquement toutes les 0.5 secondes
-        self.root.after(50, self.update_dashboard) # attend 2s ici puis reload
+        # Rafraîchir automatiquement toutes les x ms
+        self.root.after(10, self.update_dashboard) # attend 2s ici puis reload
 
 
 
@@ -336,4 +338,3 @@ if __name__ == "__main__":
 
 
 # Confirmation orale de l'action à effectuer
-# Mettre une musique de rock
